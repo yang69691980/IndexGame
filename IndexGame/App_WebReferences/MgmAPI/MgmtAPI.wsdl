@@ -1,0 +1,2485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HeartBeat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EchoString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HeartBeatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HeartBeatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserLoginCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserLoginCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetUserLoginCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetSessionExpireSecond">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginGUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ExpireSecond" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetSessionExpireSecondResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetSessionExpireSecondResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogoutSession">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginGUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogoutSessionResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SessionLogoutProcess">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginGUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SessionLogoutProcessResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateCostType">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateCostTypeResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdatePointType">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdatePointTypeResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateCompanyByCompanyCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCompanyByCompanyCodeResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateCompanyByID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCompanyByIDResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateAPIKey">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="APIKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateAPIKeyResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateGameByCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GameCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateGameByCodeResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateGameByGameKey">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GameKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateGameByGameKeyResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateUserAccountByID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserAccountByIDResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateUserAccountByLoginAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserAccountByLoginAccountResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdatePlatform">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlatformCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePlatformResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdatePlatformCompanyMenu">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlatformCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePlatformCompanyMenuResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPlatformMenuByCompanyCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlatformCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlatformMenuByCompanyCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPlatformMenuByCompanyCodeResult" type="tns:ArrayOfPlatformMenu" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPlatformMenu">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PlatformMenu" nillable="true" type="tns:PlatformMenu" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PlatformMenu">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SortIndex" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MenuName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LargeIcon" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="SmallIcon" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="EntryURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MobileEntryURL" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPlatformByCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlatformCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlatformByCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPlatformByCodeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListAllSession">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListAllSessionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListAllSessionResult" type="tns:ArrayOfSessionMgmt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSessionMgmt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SessionMgmt" nillable="true" type="tns:SessionMgmt" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SessionMgmt">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Session" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Session">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LoginGUID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="APIKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserLevel" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DeviceType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeviceGUID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserIP" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastKeepIP" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastKeepDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreateDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSessionMgmt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginGUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSessionMgmtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSessionMgmtResult" type="tns:SessionMgmt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllGameSession">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginGUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllGameSessionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllGameSessionResult" type="tns:ArrayOfGameSession" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGameSession">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GameSession" nillable="true" type="tns:GameSession" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GameSession">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LoginGUID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GameCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PointType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserIP" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="JoinDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParamList" type="tns:ArrayOfParam" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfParam">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Param" nillable="true" type="tns:Param" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Param">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSessionHistory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginGUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSessionHistoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSessionHistoryResult" type="tns:ArrayOfHistory" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfHistory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="History" nillable="true" type="tns:History" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="History">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Action" type="tns:enumAction" />
+          <s:element minOccurs="0" maxOccurs="1" name="GameCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserIP" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActionDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumAction">
+        <s:restriction base="s:string">
+          <s:enumeration value="JoinGame" />
+          <s:enumeration value="LeaveGame" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetDepositHistoryByCompany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDepositHistoryByCompanyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDepositHistoryByCompanyResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDepositHistoryByUserAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDepositHistoryByUserAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDepositHistoryByUserAccountResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderHistoryByCompany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderHistoryByCompanyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderHistoryByCompanyResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderHistoryByUserAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderHistoryByUserAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderHistoryByUserAccountResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderHistoryByGameCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GameCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderHistoryByGameCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderHistoryByGameCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderSummaryByDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderSummaryByDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderSummaryByDateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderSummaryByDateCompany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="forCompanyID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderSummaryByDateCompanyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderSummaryByDateCompanyResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountIDByLoginAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountIDByLoginAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetUserAccountIDByLoginAccountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessPointNotification">
+        <s:complexType />
+      </s:element>
+      <s:element name="ProcessPointNotificationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ProcessPointNotificationResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="int" type="s:int" />
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="ArrayOfPlatformMenu" nillable="true" type="tns:ArrayOfPlatformMenu" />
+      <s:element name="DataTable" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+            <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArrayOfSessionMgmt" nillable="true" type="tns:ArrayOfSessionMgmt" />
+      <s:element name="SessionMgmt" nillable="true" type="tns:SessionMgmt" />
+      <s:element name="ArrayOfGameSession" nillable="true" type="tns:ArrayOfGameSession" />
+      <s:element name="ArrayOfHistory" nillable="true" type="tns:ArrayOfHistory" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HeartBeatSoapIn">
+    <wsdl:part name="parameters" element="tns:HeartBeat" />
+  </wsdl:message>
+  <wsdl:message name="HeartBeatSoapOut">
+    <wsdl:part name="parameters" element="tns:HeartBeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserLoginCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserLoginCount" />
+  </wsdl:message>
+  <wsdl:message name="GetUserLoginCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserLoginCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetSessionExpireSecondSoapIn">
+    <wsdl:part name="parameters" element="tns:SetSessionExpireSecond" />
+  </wsdl:message>
+  <wsdl:message name="SetSessionExpireSecondSoapOut">
+    <wsdl:part name="parameters" element="tns:SetSessionExpireSecondResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSessionSoapIn">
+    <wsdl:part name="parameters" element="tns:LogoutSession" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSessionSoapOut">
+    <wsdl:part name="parameters" element="tns:LogoutSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="SessionLogoutProcessSoapIn">
+    <wsdl:part name="parameters" element="tns:SessionLogoutProcess" />
+  </wsdl:message>
+  <wsdl:message name="SessionLogoutProcessSoapOut">
+    <wsdl:part name="parameters" element="tns:SessionLogoutProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCostTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCostType" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCostTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCostTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePointTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePointType" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePointTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePointTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCompanyByCompanyCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCompanyByCompanyCode" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCompanyByCompanyCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCompanyByCompanyCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCompanyByIDSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCompanyByID" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCompanyByIDSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCompanyByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAPIKeySoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateAPIKey" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAPIKeySoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateAPIKeyResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateGameByCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateGameByCode" />
+  </wsdl:message>
+  <wsdl:message name="UpdateGameByCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateGameByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateGameByGameKeySoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateGameByGameKey" />
+  </wsdl:message>
+  <wsdl:message name="UpdateGameByGameKeySoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateGameByGameKeyResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountByIDSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserAccountByID" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountByIDSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserAccountByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountByLoginAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserAccountByLoginAccount" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountByLoginAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserAccountByLoginAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePlatformSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePlatform" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePlatformSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePlatformCompanyMenuSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformCompanyMenu" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePlatformCompanyMenuSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformCompanyMenuResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPlatformMenuByCompanyCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPlatformMenuByCompanyCode" />
+  </wsdl:message>
+  <wsdl:message name="GetPlatformMenuByCompanyCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPlatformMenuByCompanyCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPlatformByCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPlatformByCode" />
+  </wsdl:message>
+  <wsdl:message name="GetPlatformByCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPlatformByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListAllSessionSoapIn">
+    <wsdl:part name="parameters" element="tns:ListAllSession" />
+  </wsdl:message>
+  <wsdl:message name="ListAllSessionSoapOut">
+    <wsdl:part name="parameters" element="tns:ListAllSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionMgmtSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSessionMgmt" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionMgmtSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSessionMgmtResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllGameSessionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllGameSession" />
+  </wsdl:message>
+  <wsdl:message name="GetAllGameSessionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllGameSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionHistorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetSessionHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionHistorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetSessionHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDepositHistoryByCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:GetDepositHistoryByCompany" />
+  </wsdl:message>
+  <wsdl:message name="GetDepositHistoryByCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:GetDepositHistoryByCompanyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDepositHistoryByUserAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDepositHistoryByUserAccount" />
+  </wsdl:message>
+  <wsdl:message name="GetDepositHistoryByUserAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDepositHistoryByUserAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderHistoryByCompany" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderHistoryByCompanyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByUserAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderHistoryByUserAccount" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByUserAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderHistoryByUserAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByGameCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderHistoryByGameCode" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByGameCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderHistoryByGameCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryByDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderSummaryByDate" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryByDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderSummaryByDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryByDateCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderSummaryByDateCompany" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryByDateCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderSummaryByDateCompanyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountIDByLoginAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAccountIDByLoginAccount" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountIDByLoginAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAccountIDByLoginAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProcessPointNotificationSoapIn">
+    <wsdl:part name="parameters" element="tns:ProcessPointNotification" />
+  </wsdl:message>
+  <wsdl:message name="ProcessPointNotificationSoapOut">
+    <wsdl:part name="parameters" element="tns:ProcessPointNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="HeartBeatHttpGetIn">
+    <wsdl:part name="EchoString" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HeartBeatHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserLoginCountHttpGetIn">
+    <wsdl:part name="UserAccountID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserLoginCountHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SetSessionExpireSecondHttpGetIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+    <wsdl:part name="ExpireSecond" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetSessionExpireSecondHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSessionHttpGetIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSessionHttpGetOut" />
+  <wsdl:message name="SessionLogoutProcessHttpGetIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+    <wsdl:part name="UserAccountID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SessionLogoutProcessHttpGetOut" />
+  <wsdl:message name="UpdateCostTypeHttpGetIn" />
+  <wsdl:message name="UpdateCostTypeHttpGetOut" />
+  <wsdl:message name="UpdatePointTypeHttpGetIn" />
+  <wsdl:message name="UpdatePointTypeHttpGetOut" />
+  <wsdl:message name="UpdateCompanyByCompanyCodeHttpGetIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCompanyByCompanyCodeHttpGetOut" />
+  <wsdl:message name="UpdateCompanyByIDHttpGetIn">
+    <wsdl:part name="CompanyID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCompanyByIDHttpGetOut" />
+  <wsdl:message name="UpdateAPIKeyHttpGetIn">
+    <wsdl:part name="APIKey" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAPIKeyHttpGetOut" />
+  <wsdl:message name="UpdateGameByCodeHttpGetIn">
+    <wsdl:part name="GameCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateGameByCodeHttpGetOut" />
+  <wsdl:message name="UpdateGameByGameKeyHttpGetIn">
+    <wsdl:part name="GameKey" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateGameByGameKeyHttpGetOut" />
+  <wsdl:message name="UpdateUserAccountByIDHttpGetIn">
+    <wsdl:part name="UserAccountID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountByIDHttpGetOut" />
+  <wsdl:message name="UpdateUserAccountByLoginAccountHttpGetIn">
+    <wsdl:part name="CompanyID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountByLoginAccountHttpGetOut" />
+  <wsdl:message name="UpdatePlatformHttpGetIn">
+    <wsdl:part name="PlatformCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePlatformHttpGetOut" />
+  <wsdl:message name="UpdatePlatformCompanyMenuHttpGetIn">
+    <wsdl:part name="PlatformCode" type="s:string" />
+    <wsdl:part name="CompanyID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePlatformCompanyMenuHttpGetOut" />
+  <wsdl:message name="GetPlatformMenuByCompanyCodeHttpGetIn">
+    <wsdl:part name="PlatformCode" type="s:string" />
+    <wsdl:part name="CompanyID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPlatformMenuByCompanyCodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfPlatformMenu" />
+  </wsdl:message>
+  <wsdl:message name="GetPlatformByCodeHttpGetIn">
+    <wsdl:part name="PlatformCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPlatformByCodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="ListAllSessionHttpGetIn" />
+  <wsdl:message name="ListAllSessionHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSessionMgmt" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionMgmtHttpGetIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionMgmtHttpGetOut">
+    <wsdl:part name="Body" element="tns:SessionMgmt" />
+  </wsdl:message>
+  <wsdl:message name="GetAllGameSessionHttpGetIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllGameSessionHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGameSession" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionHistoryHttpGetIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionHistoryHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetDepositHistoryByCompanyHttpGetIn">
+    <wsdl:part name="CompanyID" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDepositHistoryByCompanyHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDepositHistoryByUserAccountHttpGetIn">
+    <wsdl:part name="UserAccountID" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDepositHistoryByUserAccountHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByCompanyHttpGetIn">
+    <wsdl:part name="CompanyID" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByCompanyHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByUserAccountHttpGetIn">
+    <wsdl:part name="UserAccountID" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByUserAccountHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByGameCodeHttpGetIn">
+    <wsdl:part name="GameCode" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByGameCodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryByDateHttpGetIn">
+    <wsdl:part name="UserAccountID" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryByDateHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryByDateCompanyHttpGetIn">
+    <wsdl:part name="forCompanyID" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryByDateCompanyHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountIDByLoginAccountHttpGetIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountIDByLoginAccountHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="ProcessPointNotificationHttpGetIn" />
+  <wsdl:message name="ProcessPointNotificationHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="HeartBeatHttpPostIn">
+    <wsdl:part name="EchoString" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HeartBeatHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserLoginCountHttpPostIn">
+    <wsdl:part name="UserAccountID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserLoginCountHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SetSessionExpireSecondHttpPostIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+    <wsdl:part name="ExpireSecond" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetSessionExpireSecondHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSessionHttpPostIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSessionHttpPostOut" />
+  <wsdl:message name="SessionLogoutProcessHttpPostIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+    <wsdl:part name="UserAccountID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SessionLogoutProcessHttpPostOut" />
+  <wsdl:message name="UpdateCostTypeHttpPostIn" />
+  <wsdl:message name="UpdateCostTypeHttpPostOut" />
+  <wsdl:message name="UpdatePointTypeHttpPostIn" />
+  <wsdl:message name="UpdatePointTypeHttpPostOut" />
+  <wsdl:message name="UpdateCompanyByCompanyCodeHttpPostIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCompanyByCompanyCodeHttpPostOut" />
+  <wsdl:message name="UpdateCompanyByIDHttpPostIn">
+    <wsdl:part name="CompanyID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCompanyByIDHttpPostOut" />
+  <wsdl:message name="UpdateAPIKeyHttpPostIn">
+    <wsdl:part name="APIKey" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAPIKeyHttpPostOut" />
+  <wsdl:message name="UpdateGameByCodeHttpPostIn">
+    <wsdl:part name="GameCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateGameByCodeHttpPostOut" />
+  <wsdl:message name="UpdateGameByGameKeyHttpPostIn">
+    <wsdl:part name="GameKey" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateGameByGameKeyHttpPostOut" />
+  <wsdl:message name="UpdateUserAccountByIDHttpPostIn">
+    <wsdl:part name="UserAccountID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountByIDHttpPostOut" />
+  <wsdl:message name="UpdateUserAccountByLoginAccountHttpPostIn">
+    <wsdl:part name="CompanyID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountByLoginAccountHttpPostOut" />
+  <wsdl:message name="UpdatePlatformHttpPostIn">
+    <wsdl:part name="PlatformCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePlatformHttpPostOut" />
+  <wsdl:message name="UpdatePlatformCompanyMenuHttpPostIn">
+    <wsdl:part name="PlatformCode" type="s:string" />
+    <wsdl:part name="CompanyID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePlatformCompanyMenuHttpPostOut" />
+  <wsdl:message name="GetPlatformMenuByCompanyCodeHttpPostIn">
+    <wsdl:part name="PlatformCode" type="s:string" />
+    <wsdl:part name="CompanyID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPlatformMenuByCompanyCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfPlatformMenu" />
+  </wsdl:message>
+  <wsdl:message name="GetPlatformByCodeHttpPostIn">
+    <wsdl:part name="PlatformCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPlatformByCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="ListAllSessionHttpPostIn" />
+  <wsdl:message name="ListAllSessionHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSessionMgmt" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionMgmtHttpPostIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionMgmtHttpPostOut">
+    <wsdl:part name="Body" element="tns:SessionMgmt" />
+  </wsdl:message>
+  <wsdl:message name="GetAllGameSessionHttpPostIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllGameSessionHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGameSession" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionHistoryHttpPostIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionHistoryHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetDepositHistoryByCompanyHttpPostIn">
+    <wsdl:part name="CompanyID" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDepositHistoryByCompanyHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDepositHistoryByUserAccountHttpPostIn">
+    <wsdl:part name="UserAccountID" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDepositHistoryByUserAccountHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByCompanyHttpPostIn">
+    <wsdl:part name="CompanyID" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByCompanyHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByUserAccountHttpPostIn">
+    <wsdl:part name="UserAccountID" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByUserAccountHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByGameCodeHttpPostIn">
+    <wsdl:part name="GameCode" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderHistoryByGameCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryByDateHttpPostIn">
+    <wsdl:part name="UserAccountID" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryByDateHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryByDateCompanyHttpPostIn">
+    <wsdl:part name="forCompanyID" type="s:string" />
+    <wsdl:part name="QueryDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryByDateCompanyHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountIDByLoginAccountHttpPostIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountIDByLoginAccountHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="ProcessPointNotificationHttpPostIn" />
+  <wsdl:message name="ProcessPointNotificationHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:portType name="MgmtAPISoap">
+    <wsdl:operation name="HeartBeat">
+      <wsdl:input message="tns:HeartBeatSoapIn" />
+      <wsdl:output message="tns:HeartBeatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLoginCount">
+      <wsdl:input message="tns:GetUserLoginCountSoapIn" />
+      <wsdl:output message="tns:GetUserLoginCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetSessionExpireSecond">
+      <wsdl:input message="tns:SetSessionExpireSecondSoapIn" />
+      <wsdl:output message="tns:SetSessionExpireSecondSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogoutSession">
+      <wsdl:input message="tns:LogoutSessionSoapIn" />
+      <wsdl:output message="tns:LogoutSessionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SessionLogoutProcess">
+      <wsdl:input message="tns:SessionLogoutProcessSoapIn" />
+      <wsdl:output message="tns:SessionLogoutProcessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCostType">
+      <wsdl:input message="tns:UpdateCostTypeSoapIn" />
+      <wsdl:output message="tns:UpdateCostTypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePointType">
+      <wsdl:input message="tns:UpdatePointTypeSoapIn" />
+      <wsdl:output message="tns:UpdatePointTypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByCompanyCode">
+      <wsdl:input message="tns:UpdateCompanyByCompanyCodeSoapIn" />
+      <wsdl:output message="tns:UpdateCompanyByCompanyCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByID">
+      <wsdl:input message="tns:UpdateCompanyByIDSoapIn" />
+      <wsdl:output message="tns:UpdateCompanyByIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAPIKey">
+      <wsdl:input message="tns:UpdateAPIKeySoapIn" />
+      <wsdl:output message="tns:UpdateAPIKeySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByCode">
+      <wsdl:input message="tns:UpdateGameByCodeSoapIn" />
+      <wsdl:output message="tns:UpdateGameByCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByGameKey">
+      <wsdl:input message="tns:UpdateGameByGameKeySoapIn" />
+      <wsdl:output message="tns:UpdateGameByGameKeySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByID">
+      <wsdl:input message="tns:UpdateUserAccountByIDSoapIn" />
+      <wsdl:output message="tns:UpdateUserAccountByIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByLoginAccount">
+      <wsdl:input message="tns:UpdateUserAccountByLoginAccountSoapIn" />
+      <wsdl:output message="tns:UpdateUserAccountByLoginAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatform">
+      <wsdl:input message="tns:UpdatePlatformSoapIn" />
+      <wsdl:output message="tns:UpdatePlatformSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformCompanyMenu">
+      <wsdl:input message="tns:UpdatePlatformCompanyMenuSoapIn" />
+      <wsdl:output message="tns:UpdatePlatformCompanyMenuSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformMenuByCompanyCode">
+      <wsdl:input message="tns:GetPlatformMenuByCompanyCodeSoapIn" />
+      <wsdl:output message="tns:GetPlatformMenuByCompanyCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformByCode">
+      <wsdl:input message="tns:GetPlatformByCodeSoapIn" />
+      <wsdl:output message="tns:GetPlatformByCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListAllSession">
+      <wsdl:input message="tns:ListAllSessionSoapIn" />
+      <wsdl:output message="tns:ListAllSessionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionMgmt">
+      <wsdl:input message="tns:GetSessionMgmtSoapIn" />
+      <wsdl:output message="tns:GetSessionMgmtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllGameSession">
+      <wsdl:input message="tns:GetAllGameSessionSoapIn" />
+      <wsdl:output message="tns:GetAllGameSessionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionHistory">
+      <wsdl:input message="tns:GetSessionHistorySoapIn" />
+      <wsdl:output message="tns:GetSessionHistorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByCompany">
+      <wsdl:input message="tns:GetDepositHistoryByCompanySoapIn" />
+      <wsdl:output message="tns:GetDepositHistoryByCompanySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByUserAccount">
+      <wsdl:input message="tns:GetDepositHistoryByUserAccountSoapIn" />
+      <wsdl:output message="tns:GetDepositHistoryByUserAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByCompany">
+      <wsdl:input message="tns:GetOrderHistoryByCompanySoapIn" />
+      <wsdl:output message="tns:GetOrderHistoryByCompanySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByUserAccount">
+      <wsdl:input message="tns:GetOrderHistoryByUserAccountSoapIn" />
+      <wsdl:output message="tns:GetOrderHistoryByUserAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByGameCode">
+      <wsdl:input message="tns:GetOrderHistoryByGameCodeSoapIn" />
+      <wsdl:output message="tns:GetOrderHistoryByGameCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDate">
+      <wsdl:input message="tns:GetOrderSummaryByDateSoapIn" />
+      <wsdl:output message="tns:GetOrderSummaryByDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDateCompany">
+      <wsdl:input message="tns:GetOrderSummaryByDateCompanySoapIn" />
+      <wsdl:output message="tns:GetOrderSummaryByDateCompanySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountIDByLoginAccount">
+      <wsdl:input message="tns:GetUserAccountIDByLoginAccountSoapIn" />
+      <wsdl:output message="tns:GetUserAccountIDByLoginAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcessPointNotification">
+      <wsdl:input message="tns:ProcessPointNotificationSoapIn" />
+      <wsdl:output message="tns:ProcessPointNotificationSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MgmtAPIHttpGet">
+    <wsdl:operation name="HeartBeat">
+      <wsdl:input message="tns:HeartBeatHttpGetIn" />
+      <wsdl:output message="tns:HeartBeatHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLoginCount">
+      <wsdl:input message="tns:GetUserLoginCountHttpGetIn" />
+      <wsdl:output message="tns:GetUserLoginCountHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetSessionExpireSecond">
+      <wsdl:input message="tns:SetSessionExpireSecondHttpGetIn" />
+      <wsdl:output message="tns:SetSessionExpireSecondHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogoutSession">
+      <wsdl:input message="tns:LogoutSessionHttpGetIn" />
+      <wsdl:output message="tns:LogoutSessionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SessionLogoutProcess">
+      <wsdl:input message="tns:SessionLogoutProcessHttpGetIn" />
+      <wsdl:output message="tns:SessionLogoutProcessHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCostType">
+      <wsdl:input message="tns:UpdateCostTypeHttpGetIn" />
+      <wsdl:output message="tns:UpdateCostTypeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePointType">
+      <wsdl:input message="tns:UpdatePointTypeHttpGetIn" />
+      <wsdl:output message="tns:UpdatePointTypeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByCompanyCode">
+      <wsdl:input message="tns:UpdateCompanyByCompanyCodeHttpGetIn" />
+      <wsdl:output message="tns:UpdateCompanyByCompanyCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByID">
+      <wsdl:input message="tns:UpdateCompanyByIDHttpGetIn" />
+      <wsdl:output message="tns:UpdateCompanyByIDHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAPIKey">
+      <wsdl:input message="tns:UpdateAPIKeyHttpGetIn" />
+      <wsdl:output message="tns:UpdateAPIKeyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByCode">
+      <wsdl:input message="tns:UpdateGameByCodeHttpGetIn" />
+      <wsdl:output message="tns:UpdateGameByCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByGameKey">
+      <wsdl:input message="tns:UpdateGameByGameKeyHttpGetIn" />
+      <wsdl:output message="tns:UpdateGameByGameKeyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByID">
+      <wsdl:input message="tns:UpdateUserAccountByIDHttpGetIn" />
+      <wsdl:output message="tns:UpdateUserAccountByIDHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByLoginAccount">
+      <wsdl:input message="tns:UpdateUserAccountByLoginAccountHttpGetIn" />
+      <wsdl:output message="tns:UpdateUserAccountByLoginAccountHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatform">
+      <wsdl:input message="tns:UpdatePlatformHttpGetIn" />
+      <wsdl:output message="tns:UpdatePlatformHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformCompanyMenu">
+      <wsdl:input message="tns:UpdatePlatformCompanyMenuHttpGetIn" />
+      <wsdl:output message="tns:UpdatePlatformCompanyMenuHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformMenuByCompanyCode">
+      <wsdl:input message="tns:GetPlatformMenuByCompanyCodeHttpGetIn" />
+      <wsdl:output message="tns:GetPlatformMenuByCompanyCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformByCode">
+      <wsdl:input message="tns:GetPlatformByCodeHttpGetIn" />
+      <wsdl:output message="tns:GetPlatformByCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListAllSession">
+      <wsdl:input message="tns:ListAllSessionHttpGetIn" />
+      <wsdl:output message="tns:ListAllSessionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionMgmt">
+      <wsdl:input message="tns:GetSessionMgmtHttpGetIn" />
+      <wsdl:output message="tns:GetSessionMgmtHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllGameSession">
+      <wsdl:input message="tns:GetAllGameSessionHttpGetIn" />
+      <wsdl:output message="tns:GetAllGameSessionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionHistory">
+      <wsdl:input message="tns:GetSessionHistoryHttpGetIn" />
+      <wsdl:output message="tns:GetSessionHistoryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByCompany">
+      <wsdl:input message="tns:GetDepositHistoryByCompanyHttpGetIn" />
+      <wsdl:output message="tns:GetDepositHistoryByCompanyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByUserAccount">
+      <wsdl:input message="tns:GetDepositHistoryByUserAccountHttpGetIn" />
+      <wsdl:output message="tns:GetDepositHistoryByUserAccountHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByCompany">
+      <wsdl:input message="tns:GetOrderHistoryByCompanyHttpGetIn" />
+      <wsdl:output message="tns:GetOrderHistoryByCompanyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByUserAccount">
+      <wsdl:input message="tns:GetOrderHistoryByUserAccountHttpGetIn" />
+      <wsdl:output message="tns:GetOrderHistoryByUserAccountHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByGameCode">
+      <wsdl:input message="tns:GetOrderHistoryByGameCodeHttpGetIn" />
+      <wsdl:output message="tns:GetOrderHistoryByGameCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDate">
+      <wsdl:input message="tns:GetOrderSummaryByDateHttpGetIn" />
+      <wsdl:output message="tns:GetOrderSummaryByDateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDateCompany">
+      <wsdl:input message="tns:GetOrderSummaryByDateCompanyHttpGetIn" />
+      <wsdl:output message="tns:GetOrderSummaryByDateCompanyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountIDByLoginAccount">
+      <wsdl:input message="tns:GetUserAccountIDByLoginAccountHttpGetIn" />
+      <wsdl:output message="tns:GetUserAccountIDByLoginAccountHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcessPointNotification">
+      <wsdl:input message="tns:ProcessPointNotificationHttpGetIn" />
+      <wsdl:output message="tns:ProcessPointNotificationHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MgmtAPIHttpPost">
+    <wsdl:operation name="HeartBeat">
+      <wsdl:input message="tns:HeartBeatHttpPostIn" />
+      <wsdl:output message="tns:HeartBeatHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLoginCount">
+      <wsdl:input message="tns:GetUserLoginCountHttpPostIn" />
+      <wsdl:output message="tns:GetUserLoginCountHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetSessionExpireSecond">
+      <wsdl:input message="tns:SetSessionExpireSecondHttpPostIn" />
+      <wsdl:output message="tns:SetSessionExpireSecondHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogoutSession">
+      <wsdl:input message="tns:LogoutSessionHttpPostIn" />
+      <wsdl:output message="tns:LogoutSessionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SessionLogoutProcess">
+      <wsdl:input message="tns:SessionLogoutProcessHttpPostIn" />
+      <wsdl:output message="tns:SessionLogoutProcessHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCostType">
+      <wsdl:input message="tns:UpdateCostTypeHttpPostIn" />
+      <wsdl:output message="tns:UpdateCostTypeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePointType">
+      <wsdl:input message="tns:UpdatePointTypeHttpPostIn" />
+      <wsdl:output message="tns:UpdatePointTypeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByCompanyCode">
+      <wsdl:input message="tns:UpdateCompanyByCompanyCodeHttpPostIn" />
+      <wsdl:output message="tns:UpdateCompanyByCompanyCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByID">
+      <wsdl:input message="tns:UpdateCompanyByIDHttpPostIn" />
+      <wsdl:output message="tns:UpdateCompanyByIDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAPIKey">
+      <wsdl:input message="tns:UpdateAPIKeyHttpPostIn" />
+      <wsdl:output message="tns:UpdateAPIKeyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByCode">
+      <wsdl:input message="tns:UpdateGameByCodeHttpPostIn" />
+      <wsdl:output message="tns:UpdateGameByCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByGameKey">
+      <wsdl:input message="tns:UpdateGameByGameKeyHttpPostIn" />
+      <wsdl:output message="tns:UpdateGameByGameKeyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByID">
+      <wsdl:input message="tns:UpdateUserAccountByIDHttpPostIn" />
+      <wsdl:output message="tns:UpdateUserAccountByIDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByLoginAccount">
+      <wsdl:input message="tns:UpdateUserAccountByLoginAccountHttpPostIn" />
+      <wsdl:output message="tns:UpdateUserAccountByLoginAccountHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatform">
+      <wsdl:input message="tns:UpdatePlatformHttpPostIn" />
+      <wsdl:output message="tns:UpdatePlatformHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformCompanyMenu">
+      <wsdl:input message="tns:UpdatePlatformCompanyMenuHttpPostIn" />
+      <wsdl:output message="tns:UpdatePlatformCompanyMenuHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformMenuByCompanyCode">
+      <wsdl:input message="tns:GetPlatformMenuByCompanyCodeHttpPostIn" />
+      <wsdl:output message="tns:GetPlatformMenuByCompanyCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformByCode">
+      <wsdl:input message="tns:GetPlatformByCodeHttpPostIn" />
+      <wsdl:output message="tns:GetPlatformByCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListAllSession">
+      <wsdl:input message="tns:ListAllSessionHttpPostIn" />
+      <wsdl:output message="tns:ListAllSessionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionMgmt">
+      <wsdl:input message="tns:GetSessionMgmtHttpPostIn" />
+      <wsdl:output message="tns:GetSessionMgmtHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllGameSession">
+      <wsdl:input message="tns:GetAllGameSessionHttpPostIn" />
+      <wsdl:output message="tns:GetAllGameSessionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionHistory">
+      <wsdl:input message="tns:GetSessionHistoryHttpPostIn" />
+      <wsdl:output message="tns:GetSessionHistoryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByCompany">
+      <wsdl:input message="tns:GetDepositHistoryByCompanyHttpPostIn" />
+      <wsdl:output message="tns:GetDepositHistoryByCompanyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByUserAccount">
+      <wsdl:input message="tns:GetDepositHistoryByUserAccountHttpPostIn" />
+      <wsdl:output message="tns:GetDepositHistoryByUserAccountHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByCompany">
+      <wsdl:input message="tns:GetOrderHistoryByCompanyHttpPostIn" />
+      <wsdl:output message="tns:GetOrderHistoryByCompanyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByUserAccount">
+      <wsdl:input message="tns:GetOrderHistoryByUserAccountHttpPostIn" />
+      <wsdl:output message="tns:GetOrderHistoryByUserAccountHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByGameCode">
+      <wsdl:input message="tns:GetOrderHistoryByGameCodeHttpPostIn" />
+      <wsdl:output message="tns:GetOrderHistoryByGameCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDate">
+      <wsdl:input message="tns:GetOrderSummaryByDateHttpPostIn" />
+      <wsdl:output message="tns:GetOrderSummaryByDateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDateCompany">
+      <wsdl:input message="tns:GetOrderSummaryByDateCompanyHttpPostIn" />
+      <wsdl:output message="tns:GetOrderSummaryByDateCompanyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountIDByLoginAccount">
+      <wsdl:input message="tns:GetUserAccountIDByLoginAccountHttpPostIn" />
+      <wsdl:output message="tns:GetUserAccountIDByLoginAccountHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcessPointNotification">
+      <wsdl:input message="tns:ProcessPointNotificationHttpPostIn" />
+      <wsdl:output message="tns:ProcessPointNotificationHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MgmtAPISoap" type="tns:MgmtAPISoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HeartBeat">
+      <soap:operation soapAction="http://tempuri.org/HeartBeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLoginCount">
+      <soap:operation soapAction="http://tempuri.org/GetUserLoginCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSessionExpireSecond">
+      <soap:operation soapAction="http://tempuri.org/SetSessionExpireSecond" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogoutSession">
+      <soap:operation soapAction="http://tempuri.org/LogoutSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SessionLogoutProcess">
+      <soap:operation soapAction="http://tempuri.org/SessionLogoutProcess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCostType">
+      <soap:operation soapAction="http://tempuri.org/UpdateCostType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePointType">
+      <soap:operation soapAction="http://tempuri.org/UpdatePointType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByCompanyCode">
+      <soap:operation soapAction="http://tempuri.org/UpdateCompanyByCompanyCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByID">
+      <soap:operation soapAction="http://tempuri.org/UpdateCompanyByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAPIKey">
+      <soap:operation soapAction="http://tempuri.org/UpdateAPIKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByCode">
+      <soap:operation soapAction="http://tempuri.org/UpdateGameByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByGameKey">
+      <soap:operation soapAction="http://tempuri.org/UpdateGameByGameKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByID">
+      <soap:operation soapAction="http://tempuri.org/UpdateUserAccountByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByLoginAccount">
+      <soap:operation soapAction="http://tempuri.org/UpdateUserAccountByLoginAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatform">
+      <soap:operation soapAction="http://tempuri.org/UpdatePlatform" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformCompanyMenu">
+      <soap:operation soapAction="http://tempuri.org/UpdatePlatformCompanyMenu" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformMenuByCompanyCode">
+      <soap:operation soapAction="http://tempuri.org/GetPlatformMenuByCompanyCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformByCode">
+      <soap:operation soapAction="http://tempuri.org/GetPlatformByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAllSession">
+      <soap:operation soapAction="http://tempuri.org/ListAllSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionMgmt">
+      <soap:operation soapAction="http://tempuri.org/GetSessionMgmt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllGameSession">
+      <soap:operation soapAction="http://tempuri.org/GetAllGameSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionHistory">
+      <soap:operation soapAction="http://tempuri.org/GetSessionHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByCompany">
+      <soap:operation soapAction="http://tempuri.org/GetDepositHistoryByCompany" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByUserAccount">
+      <soap:operation soapAction="http://tempuri.org/GetDepositHistoryByUserAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByCompany">
+      <soap:operation soapAction="http://tempuri.org/GetOrderHistoryByCompany" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByUserAccount">
+      <soap:operation soapAction="http://tempuri.org/GetOrderHistoryByUserAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByGameCode">
+      <soap:operation soapAction="http://tempuri.org/GetOrderHistoryByGameCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDate">
+      <soap:operation soapAction="http://tempuri.org/GetOrderSummaryByDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDateCompany">
+      <soap:operation soapAction="http://tempuri.org/GetOrderSummaryByDateCompany" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountIDByLoginAccount">
+      <soap:operation soapAction="http://tempuri.org/GetUserAccountIDByLoginAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessPointNotification">
+      <soap:operation soapAction="http://tempuri.org/ProcessPointNotification" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MgmtAPISoap12" type="tns:MgmtAPISoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HeartBeat">
+      <soap12:operation soapAction="http://tempuri.org/HeartBeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLoginCount">
+      <soap12:operation soapAction="http://tempuri.org/GetUserLoginCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSessionExpireSecond">
+      <soap12:operation soapAction="http://tempuri.org/SetSessionExpireSecond" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogoutSession">
+      <soap12:operation soapAction="http://tempuri.org/LogoutSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SessionLogoutProcess">
+      <soap12:operation soapAction="http://tempuri.org/SessionLogoutProcess" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCostType">
+      <soap12:operation soapAction="http://tempuri.org/UpdateCostType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePointType">
+      <soap12:operation soapAction="http://tempuri.org/UpdatePointType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByCompanyCode">
+      <soap12:operation soapAction="http://tempuri.org/UpdateCompanyByCompanyCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByID">
+      <soap12:operation soapAction="http://tempuri.org/UpdateCompanyByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAPIKey">
+      <soap12:operation soapAction="http://tempuri.org/UpdateAPIKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByCode">
+      <soap12:operation soapAction="http://tempuri.org/UpdateGameByCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByGameKey">
+      <soap12:operation soapAction="http://tempuri.org/UpdateGameByGameKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByID">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUserAccountByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByLoginAccount">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUserAccountByLoginAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatform">
+      <soap12:operation soapAction="http://tempuri.org/UpdatePlatform" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformCompanyMenu">
+      <soap12:operation soapAction="http://tempuri.org/UpdatePlatformCompanyMenu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformMenuByCompanyCode">
+      <soap12:operation soapAction="http://tempuri.org/GetPlatformMenuByCompanyCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformByCode">
+      <soap12:operation soapAction="http://tempuri.org/GetPlatformByCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAllSession">
+      <soap12:operation soapAction="http://tempuri.org/ListAllSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionMgmt">
+      <soap12:operation soapAction="http://tempuri.org/GetSessionMgmt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllGameSession">
+      <soap12:operation soapAction="http://tempuri.org/GetAllGameSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionHistory">
+      <soap12:operation soapAction="http://tempuri.org/GetSessionHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByCompany">
+      <soap12:operation soapAction="http://tempuri.org/GetDepositHistoryByCompany" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByUserAccount">
+      <soap12:operation soapAction="http://tempuri.org/GetDepositHistoryByUserAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByCompany">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderHistoryByCompany" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByUserAccount">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderHistoryByUserAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByGameCode">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderHistoryByGameCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDate">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderSummaryByDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDateCompany">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderSummaryByDateCompany" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountIDByLoginAccount">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAccountIDByLoginAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessPointNotification">
+      <soap12:operation soapAction="http://tempuri.org/ProcessPointNotification" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MgmtAPIHttpGet" type="tns:MgmtAPIHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="HeartBeat">
+      <http:operation location="/HeartBeat" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLoginCount">
+      <http:operation location="/GetUserLoginCount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSessionExpireSecond">
+      <http:operation location="/SetSessionExpireSecond" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogoutSession">
+      <http:operation location="/LogoutSession" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="SessionLogoutProcess">
+      <http:operation location="/SessionLogoutProcess" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCostType">
+      <http:operation location="/UpdateCostType" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePointType">
+      <http:operation location="/UpdatePointType" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByCompanyCode">
+      <http:operation location="/UpdateCompanyByCompanyCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByID">
+      <http:operation location="/UpdateCompanyByID" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAPIKey">
+      <http:operation location="/UpdateAPIKey" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByCode">
+      <http:operation location="/UpdateGameByCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByGameKey">
+      <http:operation location="/UpdateGameByGameKey" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByID">
+      <http:operation location="/UpdateUserAccountByID" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByLoginAccount">
+      <http:operation location="/UpdateUserAccountByLoginAccount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatform">
+      <http:operation location="/UpdatePlatform" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformCompanyMenu">
+      <http:operation location="/UpdatePlatformCompanyMenu" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformMenuByCompanyCode">
+      <http:operation location="/GetPlatformMenuByCompanyCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformByCode">
+      <http:operation location="/GetPlatformByCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAllSession">
+      <http:operation location="/ListAllSession" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionMgmt">
+      <http:operation location="/GetSessionMgmt" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllGameSession">
+      <http:operation location="/GetAllGameSession" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionHistory">
+      <http:operation location="/GetSessionHistory" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByCompany">
+      <http:operation location="/GetDepositHistoryByCompany" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByUserAccount">
+      <http:operation location="/GetDepositHistoryByUserAccount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByCompany">
+      <http:operation location="/GetOrderHistoryByCompany" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByUserAccount">
+      <http:operation location="/GetOrderHistoryByUserAccount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByGameCode">
+      <http:operation location="/GetOrderHistoryByGameCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDate">
+      <http:operation location="/GetOrderSummaryByDate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDateCompany">
+      <http:operation location="/GetOrderSummaryByDateCompany" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountIDByLoginAccount">
+      <http:operation location="/GetUserAccountIDByLoginAccount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessPointNotification">
+      <http:operation location="/ProcessPointNotification" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MgmtAPIHttpPost" type="tns:MgmtAPIHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="HeartBeat">
+      <http:operation location="/HeartBeat" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLoginCount">
+      <http:operation location="/GetUserLoginCount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSessionExpireSecond">
+      <http:operation location="/SetSessionExpireSecond" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogoutSession">
+      <http:operation location="/LogoutSession" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="SessionLogoutProcess">
+      <http:operation location="/SessionLogoutProcess" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCostType">
+      <http:operation location="/UpdateCostType" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePointType">
+      <http:operation location="/UpdatePointType" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByCompanyCode">
+      <http:operation location="/UpdateCompanyByCompanyCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompanyByID">
+      <http:operation location="/UpdateCompanyByID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAPIKey">
+      <http:operation location="/UpdateAPIKey" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByCode">
+      <http:operation location="/UpdateGameByCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGameByGameKey">
+      <http:operation location="/UpdateGameByGameKey" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByID">
+      <http:operation location="/UpdateUserAccountByID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountByLoginAccount">
+      <http:operation location="/UpdateUserAccountByLoginAccount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatform">
+      <http:operation location="/UpdatePlatform" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformCompanyMenu">
+      <http:operation location="/UpdatePlatformCompanyMenu" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformMenuByCompanyCode">
+      <http:operation location="/GetPlatformMenuByCompanyCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformByCode">
+      <http:operation location="/GetPlatformByCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAllSession">
+      <http:operation location="/ListAllSession" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionMgmt">
+      <http:operation location="/GetSessionMgmt" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllGameSession">
+      <http:operation location="/GetAllGameSession" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionHistory">
+      <http:operation location="/GetSessionHistory" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByCompany">
+      <http:operation location="/GetDepositHistoryByCompany" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositHistoryByUserAccount">
+      <http:operation location="/GetDepositHistoryByUserAccount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByCompany">
+      <http:operation location="/GetOrderHistoryByCompany" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByUserAccount">
+      <http:operation location="/GetOrderHistoryByUserAccount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderHistoryByGameCode">
+      <http:operation location="/GetOrderHistoryByGameCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDate">
+      <http:operation location="/GetOrderSummaryByDate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryByDateCompany">
+      <http:operation location="/GetOrderSummaryByDateCompany" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountIDByLoginAccount">
+      <http:operation location="/GetUserAccountIDByLoginAccount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessPointNotification">
+      <http:operation location="/ProcessPointNotification" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MgmtAPI">
+    <wsdl:port name="MgmtAPISoap" binding="tns:MgmtAPISoap">
+      <soap:address location="http://99core.dev.mts.idv.tw/API/Mgmt/MgmtAPI.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MgmtAPISoap12" binding="tns:MgmtAPISoap12">
+      <soap12:address location="http://99core.dev.mts.idv.tw/API/Mgmt/MgmtAPI.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MgmtAPIHttpGet" binding="tns:MgmtAPIHttpGet">
+      <http:address location="http://99core.dev.mts.idv.tw/API/Mgmt/MgmtAPI.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MgmtAPIHttpPost" binding="tns:MgmtAPIHttpPost">
+      <http:address location="http://99core.dev.mts.idv.tw/API/Mgmt/MgmtAPI.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

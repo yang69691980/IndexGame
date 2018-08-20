@@ -1,0 +1,325 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="99PLAY">
+    <title>99Play GameCenter</title>
+    <link href="../css/GameCenter_layout.css" rel="stylesheet" type="text/css">
+	<link href="../css/big_layout.css" rel="stylesheet" type="text/css">
+	
+<!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="../ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../ico/apple-touch-icon-57-precomposed.png">
+    <link href="../css/99playfont/styles.css" rel="stylesheet" type="text/css">
+	
+<!-- 走勢圖的表格虛線 -->	
+  <script type="application/javascript">
+    function draw_init() {
+      var ctx = document.getElementById('convas_tableLine').getContext('2d');
+          for (var i=0;i<16;i++){
+          for (var j=0;j<16;j++){
+		ctx.setLineDash([5,5]);  
+		ctx.strokeStyle = '#444';
+		ctx.beginPath();
+		ctx.moveTo(5+i*70,5);
+		ctx.lineTo(5+i*70,440);	 
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.moveTo(5,5+j*70);
+		ctx.lineTo(1090,5+j*70);	 
+		ctx.stroke();		  
+    }
+  }
+	  var ctx2 = document.getElementById('convas_tablePointLine').getContext('2d');	
+		ctx2.strokeStyle = '#999';
+		ctx2.beginPath();
+		ctx2.moveTo(0,220);
+		ctx2.lineTo(20,200);	 
+		ctx2.lineTo(60,220);
+		ctx2.lineTo(80,240);
+		ctx2.lineTo(100,220);
+		ctx2.lineTo(140,220);
+		ctx2.lineTo(190,240);
+		ctx2.lineTo(210,260);
+		ctx2.lineTo(250,260);
+		ctx2.lineTo(290,280);
+		ctx2.lineTo(320,280);
+		ctx2.lineTo(340,300);
+		ctx2.lineTo(390,320);
+		ctx2.lineTo(430,300);
+		ctx2.lineTo(460,280);
+		ctx2.lineTo(500,300);
+		ctx2.lineTo(540,320);
+		ctx2.lineTo(560,340);
+		ctx2.lineTo(590,320);
+		ctx2.lineTo(620,300);
+		ctx2.lineTo(640,280);
+		ctx2.lineTo(680,260);
+		ctx2.lineTo(710,280);
+		ctx2.lineTo(740,260);
+		ctx2.lineTo(790,240);
+		ctx2.lineTo(810,220);		
+		ctx2.stroke();		  
+    }
+	  window.onload = draw_init;
+  </script>	
+</head>
+
+<body style="margin: 0px; padding:0px; overflow: hidden; width: 100%; height: 100%; background: #1a1a1a;" onselectstart="return false;" oncontextmenu="return false;" scroll="no">	
+	<div class="big_wrapper">
+		<div class="big_header"><!-- 版頭DIV 寬度100% -->
+			<div class="big_btn_home">Home</div
+			 ><div class="big_table_name">BTI-2001</div>
+			  <div class="big_con_BTI">
+				<div class="big_open_BTI">開局指數:<i>10,000</i></div>
+				<div class="big_max_BTI">最高點:<i>10,049</i></div>
+				<div class="big_min_BTI">最低點:<i>9,000</i></div>
+				<div class="big_UPnDown_BTI">漲跌:<i class="icon icon-ico-mark-goup">49</i></div>
+				<!-- 漲三角ICON的CLASS為icon-ico-mark-goup  跌三角ICON的CLASS為icon-ico-mark-godown   -->  
+				<div class="big_changeRange_BTI">漲跌幅:<i>+0.49%</i></div>
+				<div class="big_RatioBank_BTI">莊:<i>38.2%</i></div>
+				<div class="big_RatioPlayer_BTI">閒:<i>13.6%</i></div>
+			  </div>
+			<div class="big_betHistory_BTI"><img src="../image/icon-history.png" alt="historyBtn">投注紀錄</div>
+		</div>
+		<div class="big_gameCon"><!-- GAME DIV 寬度1750 高度903 固定尺寸 在這個DIV做縮放-->
+			<div class="big_gameCon_leftDiv"><!-- 左方框 寬度640 -->
+				<div class="big_leftDiv_vediobar">
+					<div class="big_vedioSource_div">
+						<div class="big_vedioSource_tag"><i class="icon icon-ico-clip"></i>視訊源 1<i class="icon icon-ico-arrow-down"></i></div>
+						<div class="big_vedioSource_dropdown">
+						   <div class="big_vedioSource_option">視訊源 1</div>
+							<hr>
+						   <div class="big_vedioSource_option">視訊源 2</div>
+						</div>	
+					</div>
+					<div class="big_vedioFormat_div">
+						<div class="big_vedioFormat_tit">視頻格式:</div>
+						<div class="big_vedioFormat_h5 vedio_active"><i class="icon icon-ico-logo-html5"></i>HTML5<p class="big_vedioFormat_status"><a></a></p></div>
+						<!-- 當前選擇的視訊格式 綠色閃燈效果 請額外加上vedio_active的CLASS 如入上方所示 -->
+						<div class="big_vedioFormat_flash"><i class="icon icon-ico-logo-flash"></i>FLASH<p class="big_vedioFormat_status"><a></a></p></div>
+						<!-- 當前選擇的視訊格式 綠色閃燈效果 請額外加上vedio_active的CLASS -->
+						<div class="big_vedioFormat_refresh"><i class="icon icon-ico-cycle"></i></div>
+					</div>
+				</div>
+				<div class="big_leftDiv_vedioFrame"><!-- Vedio DIV 寬度640 高度360 固定尺寸 視訊崁在這個DIV內-->
+				</div>
+				<div class="big_vedioSwitch_div"><!-- vedio switch DIV 寬度640 高度41 固定尺寸  -->
+					<div class="big_vedioSwitch_btn_Active"><i>Venus_201</i><i>1</i><i>開牌中</i></div><!-- 寬度213 當前視訊的CLASS是big_vedioSwitch_btn_Active -->
+					<div class="big_vedioSwitch_btn"><i>Venus_202</i><i>1</i><i>20s</i></div>
+					<!-- 寬度213 未選擇視訊的CLASS是big_vedioSwitch_btn -->
+					<div class="big_vedioSwitch_btn"><i>Venus_203</i><i>1</i><i>45s</i></div>
+					<!-- 寬度213 未選擇當前視訊的CLASS是big_vedioSwitch_btn -->
+				</div>
+				<div class="big_roadmap_div"><!-- roadmao DIV 寬度640 高度115 固定尺寸 -->			
+					<div class="big_roadmap_img"></div><!--roadmao寬度17*12=204+1 高度17*6=102+1 -->
+					<div class="big_roadmap_img"></div>
+					<div class="big_roadmap_img"></div>
+				</div>
+				<div class="big_result_div"><!-- 開牌明細 DIV 寬度640 高度387 -->
+					<div class="big_result_tit"><i>開牌結果</i><a id="AllResultList">詳細記錄</a></div>
+					<div class="big_result_con GoUpEffect"><!-- 莊贏額外加上class GoUpEffect -->
+						<i>14:33:50</i>
+						<i>Venus_201</i>
+						<i>莊:6</i>
+						<i>閒:5</i>
+						<i>莊贏</i>
+						<i>10,000</i>
+					</div>
+					<div class="big_result_con GoDownEffect"><!-- 閒贏額外加上class GoDownEffect -->
+						<i>14:33:50</i>
+						<i>Venus_202</i>
+						<i>莊:2</i>
+						<i>閒:8</i>
+						<i>閒贏</i>
+						<i>10,000</i>
+					</div>
+					
+					<div class="big_result_con TieEffect"><!-- 和額外加上class TieEffect -->
+						<i>14:33:50</i>
+						<i>Venus_203</i>
+						<i>莊:7</i>
+						<i>閒:7</i>
+						<i>和</i>
+						<i>10,000</i>
+					</div>
+					<div class="big_result_con GoUpEffect"><!-- 莊贏額外加上class GoUpEffect -->
+						<i>14:33:50</i>
+						<i>Venus_201</i>
+						<i>莊:6</i>
+						<i>閒:5</i>
+						<i>莊贏</i>
+						<i>10,000</i>
+					</div>
+					<div class="big_result_con GoDownEffect"><!-- 閒贏額外加上class GoDownEffect -->
+						<i>14:33:50</i>
+						<i>Venus_202</i>
+						<i>莊:2</i>
+						<i>閒:8</i>
+						<i>閒贏</i>
+						<i>10,000</i>
+					</div>
+					
+					<div class="big_result_con TieEffect"><!-- 和額外加上class TieEffect -->
+						<i>14:33:50</i>
+						<i>Venus_203</i>
+						<i>莊:7</i>
+						<i>閒:7</i>
+						<i>和</i>
+						<i>10,000</i>
+					</div>
+					<div class="big_result_con GoUpEffect"><!-- 莊贏額外加上class GoUpEffect -->
+						<i>14:33:50</i>
+						<i>Venus_201</i>
+						<i>莊:6</i>
+						<i>閒:5</i>
+						<i>莊贏</i>
+						<i>10,000</i>
+					</div>
+					<div class="big_result_con GoDownEffect"><!-- 閒贏額外加上class GoDownEffect -->
+						<i>14:33:50</i>
+						<i>Venus_202</i>
+						<i>莊:2</i>
+						<i>閒:8</i>
+						<i>閒贏</i>
+						<i>10,000</i>
+					</div>
+				</div>
+			</div><!-- 左方框 結束 -->
+			<div class="big_gameCon_rightDiv"><!-- 右方框 寬度1110 高903 -->
+				<div class="big_table_info"><!-- 桌台資訊 寬度1110 高70 -->
+					<div class="big_table_info_BTI">
+						<div class="big_table_info_tit">目前指數:</div>
+						<div class="big_table_info_BTI_con"><i>BTI</i>10,049</div>
+					</div>
+					<div class="big_table_info_TotalVolume">
+						<div class="big_table_info_tit2">實時交易額:</div>
+						<div class="big_table_info_TotalVolume_up"><i class="icon icon-ico-mark-higher"></i>買漲$1,302,500</div>
+						<div class="big_table_info_TotalVolume_down"><i class="icon icon-ico-mark-lower"></i>買跌$1,302,500</div>
+					</div>
+				</div>
+				<div class="big_TrendChart_div"><!-- 走勢圖 DIV 寬度1110 高460 -->
+					<div class="big_TrendChart_light_wrapper">
+					   <div class="big_TrendChart_light_div"><!-- 走勢圖掃描動畫 DIV 寬度1110 高460 -->
+					   </div>
+					</div>
+					<div class="big_TrendChart_con"><!-- 走勢圖 CON 寬度1090 高440 -->
+						<canvas id="convas_tableLine" width="1090" height="440" style="position: absolute;top:0px;left: 0px;z-index: 1;"></canvas>
+						<canvas id="convas_tablePointLine" width="1090" height="440" style="position: absolute;top:0px;left: 0px;z-index: 2;"></canvas>
+						<div class="big_TrendChart_point">
+							<div id="point_Current" class="big_TrendChart_point_Current" style="top:220px; left: 810px;"></div><!-- 當前指數標示點 -->
+						</div>
+						<div class="big_TrendChart_line_Current" style="top:220px;"><hr><i>10,049</i></div><!-- 當前指數標示線及數值顯示 -->
+						<div class="big_TrendChart_bet_godown" style="left:390px;top:320px;">
+							<div class="big_TrendChart_bet_wrapper"><i class="icon icon-ico-mark-lower">$1,000</i></div>
+						</div><!-- 玩家下注買跌標示點及金額顯示 -->
+						<div class="big_TrendChart_bet_goup" style="left:640px;top:280px;">
+							<div class="big_TrendChart_bet_wrapper"><i class="icon icon-ico-mark-higher">$1,000</i></div>
+						</div><!-- 玩家下注買漲標示點及金額顯示 -->
+					</div>
+					<div class="big_TrendChart_timeLine"><!-- 下方時間軸標示DIV 寬1090 高30 -->
+						<div class="big_TrendChart_time" style="left:5px;">14:21</div>
+						<div class="big_TrendChart_time" style="left:75px;">14:22</div>
+						<div class="big_TrendChart_time" style="left:145px;">14:23</div>
+						<div class="big_TrendChart_time" style="left:215px;">14:24</div>
+						<div class="big_TrendChart_time" style="left:285px;">14:25</div>
+						<div class="big_TrendChart_time" style="left:355px;">14:26</div>
+						<div class="big_TrendChart_time" style="left:425px;">14:27</div>
+						<div class="big_TrendChart_time" style="left:495px;">14:28</div>
+						<div class="big_TrendChart_time" style="left:565px;">14:29</div>
+						<div class="big_TrendChart_time" style="left:635px;">14:30</div>
+						<div class="big_TrendChart_time" style="left:705px;">14:31</div>
+						<div class="big_TrendChart_time" style="left:775px;">14:32</div>
+						<div class="big_TrendChart_time" style="left:845px;">14:33</div>
+						<div class="big_TrendChart_time" style="left:915px;">14:34</div>
+						<div class="big_TrendChart_time" style="left:985px;">14:35</div>
+						<div class="big_TrendChart_time" style="left:1055px;">14:36</div>
+				   	</div>
+				</div>
+				<div class="big_betZone_wrapper"><!-- 玩家下注區 寬1110 高353 -->
+				  <div class="big_betZone_wrapper_left"><!-- 玩家下注區 寬350 高353 -->
+					<div class="big_betZone_betControl"><!-- 玩家下注區  高100 -->
+						<div class="big_betZone_btn_minus">-</div><!-- 按一下減1,000 -->
+						<div class="big_betZone_input"><input type="text" name="betCoin" placeholder="請輸入購買金額" id="betCoin">
+						  <div class="big_betZone_input_history"><!-- 玩家下注金額記錄 ，不重複記錄5筆，選擇後代入betCoin中-->
+							  <div class="big_betZone_input_wrapper">
+								<div class="big_betZone_input_tit">投注歷史金額</div>
+								<div class="big_betZone_input_list">$ 5,000</div>
+								<div class="big_betZone_input_list">$ 1,500</div>
+							    <div class="big_betZone_input_list">$ 1,000</div>
+							    <div class="big_betZone_input_list">$ 500</div>
+							    <div class="big_betZone_input_list">$ 300</div>
+							  </div>	  
+						  </div>
+						  <div class="input_deleteBTN"><i class="icon icon-ico-cancel"></i></div><!-- 清除輸入內容按鈕，有內容才出現 -->
+						</div>
+						<div class="big_betZone_btn_plus">+</div><!-- 按一下加1,000 -->
+					</div>
+					<div class="big_betZone_betOption">
+						<div class="big_betZone_betOption_L1">
+							<input type="checkbox" name="betCoin" id="betOption_01"><label for="betOption_01"><i class="icon icon-ico-selected"></i>自動補倉<span>(本金100%)</span></label>
+						</div>
+						<div class="big_betZone_betOption_L2">
+							<input type="checkbox" name="betCoin" id="betOption_02"><label for="betOption_02"><i class="icon icon-ico-selected"></i>自動留倉</label>
+						</div>
+						<div class="big_betZone_betOption_L3">
+							<input type="checkbox" name="betCoin" id="betOption_03"><label for="betOption_03"><i class="icon icon-ico-selected"></i>期望交易額</label>
+							<input type="text" name="betCoin00" placeholder="200" id="betCoin33"> %<!-- 輸入內容需檢查為每點漲幅賠率的倍數 -->
+						</div>
+						<div class="big_betZone_betOption_L4">
+							<input type="checkbox" name="betCoin" id="betOption_04"><label for="betOption_04"><i class="icon icon-ico-selected"></i>停損值</label>
+							<input type="text" name="betCoin00" placeholder="-200" id="betCoin44"> %<!--需開啟自動補倉 輸入內容需檢查為每點漲幅賠率的倍數 -->
+						</div>
+					</div>
+					<div class="big_betZone_betBtn">
+						<div class="big_betZone_betBtn_goup"><i class="icon icon-ico-btnico-higher"></i>買漲</div><!-- 買漲按鈕 -->
+						<div class="big_betZone_betBtn_godown"><i class="icon icon-ico-btnico-lower"></i>買跌</div><!-- 買跌按鈕 -->
+					</div>	
+				  </div>
+				  <div class="big_betZone_wrapper_mid">
+					  <div class="big_betZone_info_tit">投注中項目 :</div>
+					  <div class="big_betZone_info_betGoUp">買漲:<span>2</span>口 - 共$<span>10,000</span></div>
+					  <div class="big_betZone_info_betGoDown">買跌:<span>1</span>口 - 共$<span>5,000</span></div>	  
+					  <hr>
+					  <div class="big_betZone_info_tit">本局累積投注 :</div>
+					  <div class="big_betZone_info_at">$32,000</div>
+					  <hr>
+					  <div class="big_betZone_info_tit">本局當前損益 :</div>
+					  <div class="big_betZone_info_vl">+$12,000</div>
+				  </div>
+				  <div class="big_betZone_wrapper_right">
+					  <div class="big_betZone_betList_tit">投注中列表 :</div>
+					  <div class="big_betZone_betList_wrapper" id="style-4">
+						 <!-- 投注中項目開始-->
+					     <div class="big_betZone_betList_con" >
+							 <div class="big_betZone_betList_icon"><i class="icon icon-ico-btnico-higher"></i></div>
+							 <div class="big_betZone_betList_bet">
+								 <div>BIT10046</div>
+								 <div>$1000 / $0</div>
+							 </div>
+							 <div class="big_betZone_betList_vl">100%<i class="icon icon-ico-alarm"></i></div>	
+							 <div class="big_betZone_betList_set"><i class="icon icon-ico-setting"></i></div>
+							 <div class="big_betZone_betList_hovermenu">
+								 <div class="big_betZone_betList_btn">平倉</div>
+								 <div class="big_betZone_betList_btn">補倉</div>
+								 <div class="big_betZone_betList_btn">留倉</div>
+								 <div class="big_betZone_betList_btn">設定</div>
+							 </div>
+						 </div>
+						 <!-- 投注中項目結束--> 
+					     
+
+					  </div>	  
+				  </div>
+				</div>
+				
+			</div><!-- 右方框 結束 -->
+		</div>		
+	</div>
+</body>
+</html>
