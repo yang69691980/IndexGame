@@ -3,12 +3,28 @@ Partial Class Admin_Maint
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        If IsNothing(GetAdminLogin) Then Response.Redirect("RefreshParent.aspx?Login.aspx", True)
-
-        'If CheckSessionStatePermission("Admin") <> enumSessionStatePermission.AccessSuccess Then AlertMessage("您沒有存取這個項目的權限", "javascript:window.parent.closeActiveTab();")
+        Dim DT As System.Data.DataTable
+        Dim SS As String
+        Dim mySelectItem As New Ext.Net.ListItem
 
         If Ext.Net.X.IsAjaxRequest = False Then
-            Store1_SetDataBind()
+            SS = "SELECT * FROM GameArea WITH (NOLOCK) Where GameAreaState = 0"
+            DT = GetDB(DBConnStr, SS)
+
+            For Each EachDRV As System.Data.DataRowView In DT.DefaultView
+                mySelectItem = New Ext.Net.ListItem
+                mySelectItem.Text = EachDRV("Description")
+                mySelectItem.Value = EachDRV("GameAreaCode")
+                selectGamArea.Items.Add(mySelectItem)
+            Next
+
+            If DT.DefaultView.Count > 0 And IsNothing(selectGamArea.SelectedItem.Value) Then
+                selectGamArea.SetValueAndFireSelect(DT.DefaultView(0)("GameAreaCode"))
+            Else
+                selectGamArea.SetValueAndFireSelect(selectGamArea.SelectedItem.Value)
+            End If
+
+            'Store1_SetDataBind()
         End If
     End Sub
 
@@ -20,26 +36,29 @@ Partial Class Admin_Maint
         Dim DT As System.Data.DataTable
         Dim SS As String
         Dim DBCmd As System.Data.SqlClient.SqlCommand
-        Dim Admin As AdminLoginState
         Dim Param As String = String.Empty
+        Dim GameTokenResult As Boolean = False
 
-        Admin = GetAdminLogin()
+        GameTokenResult = CheckGameToken(Request("GameToken"))
 
-        If ChkPermission("OtherCompanyMaintain") = False Then
-            Param = " Where forCompanyID = @forCompanyID"
+        If GameTokenResult = True Then
+            If IsNothing(selectGamArea.SelectedItem.Value) = False Then
+                Param = " Where BaccaratTable.GameAreaCode=@GameAreaCode"
+            End If
+
+            SS = "Select BaccaratTable.*, GameArea.Description As GameAreaName From BaccaratTable With(Nolock)" &
+            " Left Join GameArea On BaccaratTable.GameAreaCode = GameArea.GameAreaCode " & Param
+            DBCmd = New System.Data.SqlClient.SqlCommand
+            DBCmd.CommandType = Data.CommandType.Text
+            DBCmd.CommandText = SS
+            If IsNothing(selectGamArea.SelectedItem.Value) = False Then
+                DBCmd.Parameters.Add("@GameAreaCode", Data.SqlDbType.VarChar).Value = selectGamArea.SelectedItem.Value
+            End If
+            DT = GetDB(DBConnStr, DBCmd)
+
+            Store1.DataSource = DT
+            Store1.DataBind()
         End If
-
-        SS = "SELECT * FROM AdminTable WITH (NOLOCK) " & Param
-        DBCmd = New System.Data.SqlClient.SqlCommand
-        DBCmd.CommandText = SS
-        DBCmd.CommandType = Data.CommandType.Text
-        If ChkPermission("OtherCompanyMaintain") = False Then
-            DBCmd.Parameters.Add("@forCompanyID", Data.SqlDbType.Int).Value = Admin.forCompanyID
-        End If
-        DT = GetDB(DBConnStr, DBCmd)
-
-        Store1.DataSource = DT
-        Store1.DataBind()
     End Sub
 
     Public Sub Store1_Submit(sender As Object, e As Ext.Net.StoreSubmitDataEventArgs)
@@ -81,16 +100,16 @@ Partial Class Admin_Maint
     End Sub
 
     Protected Sub btnNew_DirectClick(sender As Object, e As Ext.Net.DirectEventArgs) Handles btnNew.DirectClick
-        NewTabToURL("後端帳號新增", "Admin_Add.aspx")
+        NewTabToURL("桌新增", "BaccaratTable_Add.aspx")
     End Sub
 
     Protected Sub btnEdit_DirectClick(sender As Object, e As Ext.Net.DirectEventArgs) Handles btnEdit.DirectClick
-        Dim AdminID As Integer
+        Dim EditRowID As Integer
 
         If RowSelectionModel1.SelectedRows.Count > 0 Then
-            AdminID = RowSelectionModel1.SelectedRows(0).RecordID
+            EditRowID = RowSelectionModel1.SelectedRows(0).RecordID
 
-            NewTabToURL("後端帳號編輯", "Admin_Edit.aspx?ID=" & AdminID)
+            NewTabToURL("桌編輯", "BaccaratTable_Add.aspx?ID=" & EditRowID)
         End If
     End Sub
 
@@ -99,19 +118,20 @@ Partial Class Admin_Maint
             For Each EachRow As Ext.Net.SelectedRow In RowSelectionModel1.SelectedRows
                 Dim SS As String
                 Dim DBCmd As System.Data.SqlClient.SqlCommand
-                Dim Admin As AdminLoginState
 
-                Admin = GetAdminLogin()
-
-                SS = "UPDATE AdminTable SET AdminState=1 WHERE AdminID=@AdminID"
+                SS = "UPDATE BaccaratTable SET TableState=3 WHERE TableID=@TableID"
                 DBCmd = New Data.SqlClient.SqlCommand
                 DBCmd.CommandText = SS
                 DBCmd.CommandType = Data.CommandType.Text
-                DBCmd.Parameters.Add("@AdminID", Data.SqlDbType.Int).Value = EachRow.RecordID
+                DBCmd.Parameters.Add("@TableID", Data.SqlDbType.Int).Value = EachRow.RecordID
                 ExecuteDB(DBConnStr, DBCmd)
 
                 ReloadActiveTab()
             Next
         End If
+    End Sub
+
+    Private Sub selectGamArea_DirectSelect(sender As Object, e As Ext.Net.DirectEventArgs) Handles selectGamArea.DirectSelect
+        Store1_SetDataBind()
     End Sub
 End Class

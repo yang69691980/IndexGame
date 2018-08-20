@@ -2,17 +2,20 @@
 Imports System.Data
 Imports System.Security.Cryptography
 
-Public Module Platform
+Public Module PlayGame
     Public DBConnStr As String = System.Configuration.ConfigurationManager.ConnectionStrings("DBConnStr").ConnectionString
     Public DateTimeNull As DateTime = CDate("1900/1/1")
     Public ServerKey As String = System.Configuration.ConfigurationManager.AppSettings("ServerKey")
-    Public MyDomainURL As String = System.Configuration.ConfigurationManager.AppSettings("MyDomainURL")
     Public IsTestSite As Boolean = System.Configuration.ConfigurationManager.AppSettings("IsTestSite")
     Public RedisServerIP As String = System.Configuration.ConfigurationManager.AppSettings("RedisServerIP")
     Public RedisServerPort As Integer = System.Configuration.ConfigurationManager.AppSettings("RedisServerPort")
     Public RedisServerSSL As Boolean = System.Configuration.ConfigurationManager.AppSettings("RedisServerSSL")
     Public RedisServerKey As String = System.Configuration.ConfigurationManager.AppSettings("RedisServerKey")
-    Public SharedFolder As String = System.Configuration.ConfigurationManager.AppSettings("SharedFolder")
+    Public GameCode As String = System.Configuration.ConfigurationManager.AppSettings("GameCode")
+    Public GameKey As String = System.Configuration.ConfigurationManager.AppSettings("GameKey")
+    Public PlatformCode As String = System.Configuration.ConfigurationManager.AppSettings("PlatformCode")
+    Public PlatformKey As String = System.Configuration.ConfigurationManager.AppSettings("PlatformKey")
+    Public URLTokenPrivateKey As String = System.Configuration.ConfigurationManager.AppSettings("URLTokenPrivateKey")
     Public Key3DES As String = "onoeTs39aHfAATKGxYmyJ3Nf"
     Public DirSplit As String = "\"
 
@@ -20,83 +23,118 @@ Public Module Platform
 
     Private RedisClient As StackExchange.Redis.ConnectionMultiplexer
     Private Rnd As New Random
-    Private SyncRoot As New ArrayList
+    Private SyncRoot As New System.Collections.ArrayList
 
-    Public Function ChkPermission(ByVal PermissionName As String) As Boolean
+    ''' <summary>
+    ''' 由GameToken取得CompanyCode
+    ''' </summary>
+    ''' <param name="GameToken">GameToken = CompanyCodeLength(2碼) + Rdn(4碼) + CompanyCode(CompanyCodeLength碼) + myToken</param>
+    ''' <returns>CompanyCode或空字串(Error)</returns>
+    Public Function GetCompanyCodeByGameToken(GameToken As String) As String
+        Dim RetValue As String = ""
+        Dim CompanyCodeLength As Integer
+
+        If Not String.IsNullOrEmpty(GameToken) Then
+            CompanyCodeLength = Convert.ToInt32(GameToken.Substring(0, 2)) '取得CompanyCode長度
+            RetValue = GameToken.Substring(6, CompanyCodeLength) '由GameToken取得CompanyCode
+        End If
+
+        Return RetValue
+    End Function
+
+    Public Function GetJValue(o As Newtonsoft.Json.Linq.JObject, FieldName As String, Optional DefaultValue As String = Nothing) As String
+        Dim RetValue As String = DefaultValue
+
+        If IsNothing(o) = False Then
+            Dim T As Newtonsoft.Json.Linq.JToken
+
+            T = o(FieldName)
+            If IsNothing(T) = False Then
+                RetValue = T.ToString
+            End If
+        End If
+
+        Return RetValue
+    End Function
+
+    Public Function CheckURLToken(UserToken As String, URL As String, PrivateKey As String, UserIP As String) As Boolean
+        Dim TokenArray() As String
         Dim RetValue As Boolean = False
-        Dim SS As String = String.Empty
-        Dim DBCmd As System.Data.SqlClient.SqlCommand
-        Dim DT As System.Data.DataTable
-        Dim Admin As AdminLoginState = Nothing
 
-        Admin = GetAdminLogin()
+        If IsTestSite = False Then
+            If String.IsNullOrEmpty(UserToken) = False Then
+                TokenArray = UserToken.Split("_")
+                If TokenArray.Length >= 2 Then
+                    Dim RandomValue As String = TokenArray(0)
+                    Dim HashValue As String = TokenArray(1)
 
-        SS = "Select AdminRolePermission.* From AdminRolePermission With (Nolock) " &
-        " Left Join AdminTable With (Nolock) On AdminRolePermission.forAdminRoleID = AdminTable.forAdminRoleID" &
-        " Where AdminTable.AdminID = @AdminID And AdminRolePermission.forPermissionName = @forPermissionName"
-        DBCmd = New System.Data.SqlClient.SqlCommand
-        DBCmd.CommandText = SS
-        DBCmd.CommandType = Data.CommandType.Text
-        DBCmd.Parameters.Add("@AdminID", Data.SqlDbType.Int).Value = Admin.AdminID
-        DBCmd.Parameters.Add("@forPermissionName", Data.SqlDbType.VarChar).Value = PermissionName
-        DT = GetDB(DBConnStr, DBCmd)
-
-        If DT.Rows.Count > 0 Then
+                    If CalcURLToken(URL, PrivateKey, RandomValue, UserIP) = HashValue Then
+                        RetValue = True
+                    End If
+                End If
+            End If
+        Else
             RetValue = True
         End If
 
         Return RetValue
     End Function
 
-    Public Function GetAdminLogin() As AdminLoginState
-        Dim Admin As AdminLoginState = Nothing
+    Public Function CreateURLToken(URLPath As String, PrivateKey As String, RandomValue As String, UserIP As String) As String
+        Dim Token As String
 
-        If IsNothing(Session("PlatformAdmin_Logined")) = False Then
-            If CBool(Session("PlatformAdmin_Logined")) Then
-                Admin = Session("PlatformAdmin")
-            End If
-        End If
+        Token = RandomValue & "_" & CalcURLToken(URLPath, PrivateKey, RandomValue, UserIP)
 
-        Return Admin
+        Return Token
     End Function
 
-    Public Sub SetAdminLogin(Admin As AdminLoginState)
-        Session("PlatformAdmin_Logined") = True
-        Session("PlatformAdmin") = Admin
-    End Sub
+    Public Function CalcURLToken(URLPath As String, PrivateKey As String, RandomValue As String, UserIP As String) As String
+        Dim md5 As System.Security.Cryptography.MD5 = System.Security.Cryptography.MD5.Create
+        Dim hash() As Byte = Nothing
+        Dim Source As String = URLPath & ":" & PrivateKey & ":" & RandomValue & ":" & UserIP
+        Dim RetValue As New System.Text.StringBuilder
 
-    Public Function LoginAdmin(AdminAccount As String, AdminPassword As String, CompanyCode As String) As AdminLoginState
-        Dim SS As String
-        Dim DBCmd As System.Data.SqlClient.SqlCommand
-        Dim DT As System.Data.DataTable
-        Dim RetValue As AdminLoginState
-        Dim GameToken As String = String.Empty
+        hash = md5.ComputeHash(System.Text.Encoding.Default.GetBytes(Source))
 
-        SS = "SELECT * FROM AdminTable WITH (NOLOCK) WHERE LoginAccount=@LoginAccount" &
-            " And forCompanyID=(Select CompanyID From CompanyTable With(Nolock) Where CompanyCode=@CompanyCode)"
-        DBCmd = New System.Data.SqlClient.SqlCommand
-        DBCmd.CommandText = SS
-        DBCmd.CommandType = Data.CommandType.Text
-        DBCmd.Parameters.Add("@LoginAccount", Data.SqlDbType.VarChar).Value = AdminAccount
-        DBCmd.Parameters.Add("@CompanyCode", Data.SqlDbType.VarChar).Value = CompanyCode
-        DT = GetDB(DBConnStr, DBCmd)
-        If DT.Rows.Count > 0 Then
-            If GetMD5(AdminPassword) = DT.Rows(0)("LoginPassword") Then
-                GameToken = GetGameToken(DT.Rows(0)("forCompanyID"))
+        md5 = Nothing
 
-                RetValue = New AdminLoginState
-                RetValue.AdminAccount = DT.Rows(0)("LoginAccount")
-                RetValue.AdminID = DT.Rows(0)("AdminID")
-                RetValue.RealName = DT.Rows(0)("RealName")
-                RetValue.forCompanyID = DT.Rows(0)("forCompanyID")
-                RetValue.GameToken = GameToken
-            End If
-        End If
+        For Each EachByte As Byte In hash
+            Dim ByteStr As String = EachByte.ToString("x")
 
-        Return RetValue
+            ByteStr = New String("0", 2 - ByteStr.Length) & ByteStr
+            RetValue.Append(ByteStr)
+        Next
+
+        Return RetValue.ToString
     End Function
 
+    Public Function CalcVideoToken(URLPath As String, PrivateKey As String, TimeoutSecondUTC As Long, RandomValue As String, UserIP As String) As String
+        Dim md5 As System.Security.Cryptography.MD5 = System.Security.Cryptography.MD5.Create
+        Dim hash() As Byte = Nothing
+        Dim Source As String = URLPath & ":" & PrivateKey & ":" & TimeoutSecondUTC & ":" & RandomValue & ":" & UserIP
+        Dim RetValue As New System.Text.StringBuilder
 
+        hash = md5.ComputeHash(System.Text.Encoding.Default.GetBytes(Source))
+
+        md5 = Nothing
+
+        For Each EachByte As Byte In hash
+            Dim ByteStr As String = EachByte.ToString("x")
+
+            ByteStr = New String("0", 2 - ByteStr.Length) & ByteStr
+            RetValue.Append(ByteStr)
+        Next
+
+        Return RetValue.ToString
+    End Function
+
+    Public Function GetReportDate(QueryDateTime As DateTime) As DateTime
+        If QueryDateTime.TimeOfDay.Subtract(New TimeSpan(12, 0, 0)).TotalSeconds >= 0 Then
+            Return QueryDateTime.Date
+        Else
+            Return QueryDateTime.Date.AddDays(-1)
+        End If
+    End Function
 
     Public Function BuildPersonCode(UserAccountID As Integer) As String
         Dim V As String
@@ -278,7 +316,50 @@ Public Module Platform
         SrcContent = System.Convert.FromBase64String(EncStr)
         Return DESDecrypt.TransformFinalBlock(SrcContent, 0, SrcContent.Length)
     End Function
-    Function GetGameToken(ByVal CompanyID As Integer) As String
+    Public Function CheckGameToken(ByVal GameToken As String) As Boolean
+        Dim RetValue As Boolean = False
+        Dim Rdn As String = String.Empty
+        Dim CompanyCode As String = String.Empty
+        Dim myToken As String = String.Empty
+        Dim calToken As String = String.Empty
+        Dim CompanyCodeLength As String = String.Empty
+
+        If String.IsNullOrEmpty(GameToken) = False Then
+            CompanyCodeLength = GameToken.Substring(0, 2)
+            Rdn = GameToken.Substring(2, 4)
+            CompanyCode = GameToken.Substring(6, Convert.ToInt16(CompanyCodeLength))
+            myToken = GameToken.Substring(6 + Convert.ToInt16(CompanyCodeLength))
+            calToken = GetGameToken(Rdn, CompanyCode)
+            If String.IsNullOrEmpty(calToken) = False Then
+                If myToken = calToken Then
+                    RetValue = True
+                    Session("GameToken") = GameToken
+                    Session("CompanyCode") = CompanyCode
+                End If
+            End If
+
+        Else
+            GameToken = Session("GameToken")
+            If String.IsNullOrEmpty(GameToken) = False Then
+                CompanyCodeLength = GameToken.Substring(0, 2)
+                Rdn = GameToken.Substring(2, 4)
+                CompanyCode = GameToken.Substring(6, Convert.ToInt16(CompanyCodeLength))
+                myToken = GameToken.Substring(6 + Convert.ToInt16(CompanyCodeLength))
+                calToken = GetGameToken(Rdn, CompanyCode)
+                If String.IsNullOrEmpty(calToken) = False Then
+                    If myToken = calToken Then
+                        RetValue = True
+                    End If
+                End If
+
+            End If
+        End If
+
+
+        Return RetValue
+    End Function
+
+    Function GetGameToken(ByVal Rdn As String, ByVal CompanyCode As String) As String
         Dim SS As String = String.Empty
         Dim DBCmd As System.Data.SqlClient.SqlCommand
         Dim DT As System.Data.DataTable
@@ -286,40 +367,29 @@ Public Module Platform
         Dim chars As Char() = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         Dim myLength As Integer = rnd.Next(4, 4)
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder
-        Dim Rdn As String = String.Empty
         Dim myHash As String = String.Empty
         Dim myToken As String = String.Empty
         Dim oSha1 As System.Security.Cryptography.SHA1Managed = New System.Security.Cryptography.SHA1Managed
         Dim bytData As Byte()
         Dim bytResult As Byte()
         Dim RetValue As String = String.Empty
-        Dim CompanyCodeLength As String
 
-        If CompanyID <> 0 Then
-            SS = "Select * From CompanyTable With (Nolock) Where CompanyID=@CompanyID"
+        If String.IsNullOrEmpty(CompanyCode) = False Then
+            SS = "Select * From CompanySetting With (Nolock) Where CompanyCode=@CompanyCode"
             DBCmd = New System.Data.SqlClient.SqlCommand
             DBCmd.CommandText = SS
             DBCmd.CommandType = Data.CommandType.Text
-            DBCmd.Parameters.Add("@CompanyID", Data.SqlDbType.Int).Value = CompanyID
+            DBCmd.Parameters.Add("@CompanyCode", Data.SqlDbType.VarChar).Value = CompanyCode
             DT = GetDB(DBConnStr, DBCmd)
 
             If DT.Rows.Count > 0 Then
                 If String.IsNullOrEmpty(DT.Rows(0)("PrivateKey")) = False Then
-                    If String.IsNullOrEmpty(DT.Rows(0)("CompanyCode")) = False Then
-                        For i As Integer = 0 To myLength - 1
-                            sb.Append(chars(rnd.Next(chars.Length - 1)))
-                        Next
 
-                        Rdn = sb.ToString
-                    End If
-
-                    myHash = Rdn & ":" & DT.Rows(0)("CompanyCode") & ":" & DT.Rows(0)("PrivateKey")
+                    myHash = Rdn & ":" & CompanyCode & ":" & DT.Rows(0)("PrivateKey")
                     bytData = System.Text.Encoding.Default.GetBytes(myHash)
                     bytResult = oSha1.ComputeHash(bytData)
                     myToken = System.Convert.ToBase64String(bytResult)
-                    CompanyCodeLength = DT.Rows(0)("CompanyCode").ToString.Length
-                    CompanyCodeLength = CompanyCodeLength.PadLeft(2, "0")
-                    RetValue = CompanyCodeLength & Rdn & DT.Rows(0)("CompanyCode") & myToken
+                    RetValue = myToken
                     'Response.Write(Rdn & DT.Rows(0)("CompanyCode") & myToken)
                 End If
             End If
@@ -327,6 +397,7 @@ Public Module Platform
 
         Return RetValue
     End Function
+
 
     Public Function FormatDecimal(s As Decimal) As Decimal
         Dim iValue As Decimal
@@ -392,23 +463,6 @@ Public Module Platform
 
         Return RetValue
     End Function
-
-    Public Sub AlertMessage(ByVal Content As String, ByVal ReturnURL As String)
-        Response.ClearContent()
-        Response.Write("<Script Language=""JavaScript"">")
-        Response.Write("alert(""" & JSEncodeString(Content) & """);")
-
-        If ReturnURL = String.Empty Then
-            Response.Write("window.history.back (1);")
-
-        Else
-            Response.Write("window.location.href=""" & ReturnURL & """;")
-        End If
-
-        Response.Write("</Script>")
-        Response.Flush()
-        Response.End()
-    End Sub
 
     Public Function XMLSerial(ByVal obj As Object) As String
         Dim XMLSer As System.Xml.Serialization.XmlSerializer
@@ -481,65 +535,4 @@ Public Module Platform
     Private Function User() As System.Security.Principal.IPrincipal
         Return HttpContext.Current.User
     End Function
-
-    Public Class PlatformSession
-        Public Shared Property Item(Key As String) As Object
-            Get
-                Dim RetValue As Object = Nothing
-
-                If PlatformRedisCache.GlobalSession.ExistSession(Session.SessionID, Key) Then
-                    Dim ObjectTypeString As String
-                    Dim ObjectContent As String
-                    Dim ObjectType As System.Type
-
-                    ObjectTypeString = PlatformRedisCache.GlobalSession.GetSession(Session.SessionID, Key & ".ObjectType")
-                    ObjectContent = PlatformRedisCache.GlobalSession.GetSession(Session.SessionID, Key)
-
-                    Select Case ObjectTypeString.ToUpper
-                        Case "System.Data.DataSet".ToUpper
-                            RetValue = PlatformRedisCache.DSDeserialize(ObjectContent)
-                        Case "System.Data.DataTable".ToUpper
-                            RetValue = PlatformRedisCache.DTDeserialize(ObjectContent)
-                        Case Else
-                            ObjectType = System.Type.GetType(ObjectTypeString)
-                            RetValue = XMLDeserial(ObjectContent, ObjectType)
-                    End Select
-                End If
-
-                Return RetValue
-            End Get
-            Set(value As Object)
-                If IsNothing(value) = False Then
-                    Dim ObjectTypeString As String
-                    Dim ObjectContent As String
-
-                    ObjectTypeString = value.GetType.ToString
-
-                    Select Case ObjectTypeString.ToUpper
-                        Case "System.Data.DataSet".ToUpper
-                            ObjectContent = PlatformRedisCache.DSSerialize(value)
-                        Case "System.Data.DataTable".ToUpper
-                            ObjectContent = PlatformRedisCache.DTSerialize(value)
-                        Case Else
-                            ObjectContent = XMLSerial(value)
-                    End Select
-
-                    PlatformRedisCache.GlobalSession.WriteSession(Session.SessionID, Key & ".ObjectType", ObjectTypeString)
-                    PlatformRedisCache.GlobalSession.WriteSession(Session.SessionID, Key, ObjectContent)
-                End If
-            End Set
-        End Property
-
-        Public Shared Sub KeepAlive()
-            PlatformRedisCache.GlobalSession.KeepSession(Session.SessionID)
-        End Sub
-
-        Public Shared Sub Expired()
-            PlatformRedisCache.GlobalSession.ExpireSession(Session.SessionID)
-        End Sub
-
-        Public Shared Function KeyExist(Key As String) As Boolean
-            Return PlatformRedisCache.GlobalSession.ExistSession(Session.SessionID, Key)
-        End Function
-    End Class
 End Module

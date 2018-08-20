@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Admin_Maint.aspx.vb" Inherits="Admin_Maint" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="BaccaratTable_Maint.aspx.vb" Inherits="Admin_Maint" %>
 
 <!DOCTYPE html>
 
@@ -93,6 +93,13 @@
                         <TopBar>
                             <ext:Toolbar ID="Toolbar1" runat="server">
                                 <Items>
+                                    <ext:SelectBox
+                                        ID="selectGamArea"
+                                        runat="server">
+                                        <Items>
+                                        </Items>
+                                    </ext:SelectBox>
+
                                     <ext:Button ID="btnNew" runat="server" Icon="ApplicationAdd" Text="新增" />
                                     <ext:ToolbarSeparator />
                                     <ext:Button ID="btnEdit" runat="server" Icon="ApplicationEdit" Text="編輯" />

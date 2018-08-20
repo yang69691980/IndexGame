@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Admin_Edit.aspx.vb" Inherits="Admin_Edit" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="BaccaratTable_Edit.aspx.vb" Inherits="Admin_Edit" %>
 
 <!DOCTYPE html>
 
